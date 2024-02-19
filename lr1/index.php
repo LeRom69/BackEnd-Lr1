@@ -72,38 +72,51 @@ switch($sound){
 
 echo"<h1>ЗАВДАННЯ 6</h1>";
 
-$q = 429;
-$x1 =  (int)($q/100)%10;
-$x2 =  (int)($q/10)%10;
-$x3 = $q%10;
+$randomNumber = rand(100, 999);
 
-$sum = $x1+$x2+$x3;
+$sum = 0;
+$number = $randomNumber;
 
-echo"Num: $q<br>";
-echo"Sum = $sum<br>";
-echo"Reverse = $x3$x2$x1<br>";
-echo"Max = $x3$x1$x2<br>";
+echo "Число для маніпуляцій - $number<br><br>";
+while ($number > 0) {
+    $sum += $number % 10;
+    $number = (int)($number / 10);
+}
+echo "Сума цифр числа - $sum<br><br>"; 
+
+$reversedNumber = 0;
+$number = $randomNumber;
+while ($number > 0) {
+    $reversedNumber = $reversedNumber * 10 + $number % 10;
+    $number = (int)($number / 10);
+}
+echo "Зворотнє число - $reversedNumber<br><br>";
+
+$digits = str_split((string)$randomNumber);
+rsort($digits);
+$maxPermutedNumber = (int)implode('', $digits);
+echo "Найбільше число - $maxPermutedNumber<br><br>";
+
 
 echo"<h1>ЗАВДАННЯ 7-1</h1>";
 
-$table = "<table style = 'border:1px solid black'>";
-   for($i=1; $i <= 4; $i++)  
-   { 
-      $table.= "<tr>";
-   
-      for($q=1; $q <= 4; $q++) 
-      { 
-if($i==1||$q==1)
+function generateColorTable($rows, $cols) {
+    echo "<table border='1'>";
+    for ($i = 0; $i < $rows; $i++) {
+        echo "<tr>";
+        for ($j = 0; $j < $cols; $j++) {
+            $color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+            echo "<td style='background-color: $color; width: 50px; height: 50px;'></td>";
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+}
 
-$table.="</td>";
+$rows = 5;
+$cols = 5;
 
-else $table.="<td> </td>";
-
-      } 
-      $table.="</tr>";
-   } 
-   $table.="</table>";
-   echo $table;
+generateColorTable($rows, $cols);
 ?>
 
 
